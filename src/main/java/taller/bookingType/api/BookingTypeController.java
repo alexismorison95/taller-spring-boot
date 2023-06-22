@@ -25,7 +25,7 @@ public class BookingTypeController {
     @Autowired
     private ModelMapper _modelMapper;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookingTypeController.class);
+    private static final Logger _logger = LoggerFactory.getLogger(BookingTypeController.class);
 
     @GetMapping("/bookingTypes")
     public ResponseEntity<List<BookingTypeDto>> getAll() {
@@ -34,6 +34,8 @@ public class BookingTypeController {
             .stream()
             .map(bookingType -> _modelMapper.map(bookingType, BookingTypeDto.class))
             .collect(Collectors.toList());
+
+        _logger.info(result.toString());
 
         return ResponseEntity.ok(result);
     }
