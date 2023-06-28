@@ -1,39 +1,21 @@
-package taller.hotel.domain.entities;
+package taller.hotel.application.dtos.hotelPhoto;
 
-import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "HotelPhoto")
-public class HotelPhoto {
+@Component
+public class HotelPhotoDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Integer id;
 
-    private String url;
+    String url;
 
-    private String description;
+    String description;
 
     private Date createdDate;
 
     private Date lastUpdatedDate;
-
-    @ManyToOne
-    @JoinColumn(name = "hotelId")
-    private Hotel hotel;
-
-    public HotelPhoto() {
-    }
-
-    public HotelPhoto(Integer id, String url, String description, Date createdDate, Hotel hotel) {
-        this.id = id;
-        this.url = url;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.hotel = hotel;
-    }
 
     public Integer getId() {
         return id;
@@ -73,13 +55,5 @@ public class HotelPhoto {
 
     public void setLastUpdatedDate(Date lastUpdatedDate) {
         this.lastUpdatedDate = lastUpdatedDate;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 }

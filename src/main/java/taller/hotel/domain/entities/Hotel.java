@@ -1,10 +1,9 @@
 package taller.hotel.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Hotel")
@@ -12,62 +11,86 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer HotelId;
+    private Integer id;
 
-    private String Name;
+    private String name;
 
-    private String Description;
+    private String description;
 
-    @OneToMany(mappedBy = "Hotel", fetch = FetchType.LAZY)
-    private List<HotelPhoto> HotelPhotos;
+    private Date createdDate;
+
+    private Date lastUpdatedDate;
+
+    private Integer destinationId;
+
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<HotelPhoto> hotelPhotos;
 
     public Hotel() {
     }
 
-    public Hotel(Integer hotelId, String name, String description, List<HotelPhoto> hotelPhotos) {
-        HotelId = hotelId;
-        Name = name;
-        Description = description;
-        HotelPhotos = hotelPhotos;
+    public Hotel(Integer id, String name, String description, Date createdDate, Integer destinationId, Set<HotelPhoto> hotelPhotos) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.destinationId = destinationId;
+        this.hotelPhotos = hotelPhotos;
     }
 
-    public Integer getHotelId() {
-        return HotelId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setHotelId(Integer hotelId) {
-        HotelId = hotelId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public List<HotelPhoto> getHotelPhotos() {
-        return HotelPhotos;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setHotelPhotos(List<HotelPhoto> hotelPhotos) {
-        HotelPhotos = hotelPhotos;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public void addHotelPhoto(HotelPhoto hotelPhoto) {
-        HotelPhotos.add(hotelPhoto);
+    public Date getLastUpdatedDate() {
+        return lastUpdatedDate;
     }
 
-    public void removeHotelPhoto(HotelPhoto hotelPhoto) {
-        HotelPhotos.remove(hotelPhoto);
+    public void setLastUpdatedDate(Date lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
+    }
+
+    public Integer getDestinationId() {
+        return destinationId;
+    }
+
+    public void setDestinationId(Integer destinationId) {
+        this.destinationId = destinationId;
+    }
+
+    public Set<HotelPhoto> getHotelPhotos() {
+        return hotelPhotos;
+    }
+
+    public void setHotelPhotos(Set<HotelPhoto> hotelPhotos) {
+        this.hotelPhotos = hotelPhotos;
     }
 }

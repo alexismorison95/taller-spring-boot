@@ -7,31 +7,31 @@ import jakarta.persistence.*;
 public class BookingType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer BookingTypeId;
+    private Integer id;
 
-    private String Name;
+    private String name;
 
     public BookingType() {
     }
 
-    public BookingType(Integer bookingTypeId, String name) {
-        BookingTypeId = bookingTypeId;
-        Name = name;
+    public BookingType(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Integer getBookingTypeId() {
-        return BookingTypeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBookingTypeId(Integer bookingTypeId) {
-        BookingTypeId = bookingTypeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 }

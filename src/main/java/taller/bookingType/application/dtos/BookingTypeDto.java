@@ -1,22 +1,23 @@
 package taller.bookingType.application.dtos;
 
 public class BookingTypeDto {
-    Integer BookingTypeId;
-    String Name;
 
-    public Integer getBookingTypeId() {
-        return BookingTypeId;
+    Integer id;
+    String name;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setBookingTypeId(Integer bookingTypeId) {
-        BookingTypeId = bookingTypeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 }
