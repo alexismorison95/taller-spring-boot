@@ -1,29 +1,29 @@
 INSERT INTO [dbo].[RatingScale]
-			([Name])
+	([Name],[createdDate])
 VALUES
-    ('Sin valorar'),
-	('Malo'),
-	('Regular'),
-	('Bueno'),
-	('Muy bueno'),
-	('Excelente')
+    ('Sin valorar', GETDATE()),
+	('Malo', GETDATE()),
+	('Regular', GETDATE()),
+	('Bueno', GETDATE()),
+	('Muy bueno', GETDATE()),
+	('Excelente', GETDATE())
 ;
 
 INSERT INTO [dbo].[OrderState]
-           ([Name])
+    ([Name],[createdDate])
 VALUES
- 	('En espera'),
-	('En curso'),
-	('Completado')
+ 	('En espera', GETDATE()),
+	('En curso', GETDATE()),
+	('Completado', GETDATE())
 ;
 
 
 INSERT INTO [dbo].[BookingType]
-           ([Name])
-     VALUES
- 		('No aplica'),
-		('Media pensión'),
-		('All inclusive')
+    ([Name],[createdDate])
+VALUES
+ 	('No aplica', GETDATE()),
+	('Media pensión', GETDATE()),
+	('All inclusive', GETDATE())
 ;
 
 
