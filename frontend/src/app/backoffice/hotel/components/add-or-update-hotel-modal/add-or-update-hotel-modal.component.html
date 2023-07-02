@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formGroup">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nombre" formControlName="name">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Descripción" formControlName="description">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" [disabled]="!formGroup.valid">Guardar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+</div>

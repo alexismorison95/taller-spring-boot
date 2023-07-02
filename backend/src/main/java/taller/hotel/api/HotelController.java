@@ -17,6 +17,7 @@ import taller.shared.application.Exception.ResourceNotFoundException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600, methods = {RequestMethod.PUT, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.GET} )
 public class HotelController {
 
     @Autowired
@@ -36,6 +37,12 @@ public class HotelController {
         HotelDto hotel = _hotelService.getHotelById(id);
 
         return ResponseEntity.ok().body(hotel);
+    }
+
+    @GetMapping("/hotel/by-destination/{desinationId}")
+    public ResponseEntity<List<HotelDto>> getHotelsByDestinationId(@PathVariable Integer desinationId) throws ResourceNotFoundException  {
+
+        return ResponseEntity.ok(_hotelService.getHotelsByDestinationId(desinationId));
     }
 
     @PostMapping("/hotel")
@@ -59,7 +66,7 @@ public class HotelController {
 
         _hotelService.deleteHotelById(id);
 
-        return ResponseEntity.ok().body("Deleted");
+        return ResponseEntity.ok().body(id);
     }
 
     @GetMapping("/hotel/{id}/hotel-photo")
@@ -91,6 +98,6 @@ public class HotelController {
 
         _hotelService.deleteHotelPhotoById(id);
 
-        return ResponseEntity.ok().body("Deleted");
+        return ResponseEntity.ok().body(id);
     }
 }

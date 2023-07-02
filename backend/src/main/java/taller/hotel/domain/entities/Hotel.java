@@ -1,6 +1,7 @@
 package taller.hotel.domain.entities;
 
 import jakarta.persistence.*;
+import taller.destination.domain.entities.Destination;
 
 import java.util.Date;
 import java.util.Set;
@@ -13,18 +14,25 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable=false)
     private String name;
 
     private String description;
 
+    @Column(nullable=false)
     private Date createdDate;
 
     private Date lastUpdatedDate;
 
+    @Column(nullable=false)
     private Integer destinationId;
 
     @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<HotelPhoto> hotelPhotos;
+
+    @ManyToOne
+    @JoinColumn(name = "destinationId", insertable=false, updatable=false)
+    private Destination destination;
 
     public Hotel() {
     }
@@ -92,5 +100,13 @@ public class Hotel {
 
     public void setHotelPhotos(Set<HotelPhoto> hotelPhotos) {
         this.hotelPhotos = hotelPhotos;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination) {
+        this.destination = destination;
     }
 }

@@ -1,14 +1,14 @@
-package taller.hotel.application.dtos.hotel;
+package taller.destination.application.dtos;
 
 import org.springframework.stereotype.Component;
-import taller.hotel.application.dtos.hotelPhoto.HotelPhotoDto;
+import taller.hotel.application.dtos.hotel.HotelDto;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Component
-public class HotelDto {
+public class DestinationDto {
 
     Integer id;
 
@@ -20,9 +20,7 @@ public class HotelDto {
 
     Date lastUpdatedDate;
 
-    Integer destinationId;
-
-    List<HotelPhotoDto> hotelPhotos = new ArrayList<>();
+    List<HotelDto> hotels = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -64,19 +62,11 @@ public class HotelDto {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
-    public Integer getDestinationId() {
-        return destinationId;
+    public List<HotelDto> getHotels() {
+        return hotels;
     }
 
-    public void setDestinationId(Integer destinationId) {
-        this.destinationId = destinationId;
-    }
-
-    public List<HotelPhotoDto> getHotelPhotos() {
-        return hotelPhotos;
-    }
-
-    public void setHotelPhotos(List<HotelPhotoDto> hotelPhotos) {
-        this.hotelPhotos = hotelPhotos;
+    public void setHotels(List<HotelDto> hotels) {
+        this.hotels = hotels;
     }
 }

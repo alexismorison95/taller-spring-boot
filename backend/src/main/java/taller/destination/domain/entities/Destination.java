@@ -1,19 +1,21 @@
-package taller.hotel.domain.entities;
+package taller.destination.domain.entities;
 
 import jakarta.persistence.*;
+import taller.hotel.domain.entities.Hotel;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "HotelPhoto")
-public class HotelPhoto {
+@Table(name = "Destination")
+public class Destination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable=false)
-    private String url;
+    private String name;
 
     private String description;
 
@@ -22,22 +24,18 @@ public class HotelPhoto {
 
     private Date lastUpdatedDate;
 
-    @Column(nullable=false)
-    private Integer hotelId;
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<Hotel> hotels;
 
-    @ManyToOne
-    @JoinColumn(name = "hotelId", insertable=false, updatable=false)
-    private Hotel hotel;
+    public Destination() {}
 
-    public HotelPhoto() {
-    }
-
-    public HotelPhoto(Integer id, String url, String description, Date createdDate, Integer hotelId) {
+    public Destination(Integer id, String name, String description, Date createdDate, Date lastUpdatedDate, Set<Hotel> hotels) {
         this.id = id;
-        this.url = url;
+        this.name = name;
         this.description = description;
         this.createdDate = createdDate;
-        this.hotelId = hotelId;
+        this.lastUpdatedDate = lastUpdatedDate;
+        this.hotels = hotels;
     }
 
     public Integer getId() {
@@ -48,12 +46,12 @@ public class HotelPhoto {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -80,19 +78,11 @@ public class HotelPhoto {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
-    public Integer getHotelId() {
-        return hotelId;
+    public Set<Hotel> getHotels() {
+        return hotels;
     }
 
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotels(Set<Hotel> hotels) {
+        this.hotels = hotels;
     }
 }

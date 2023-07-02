@@ -1,23 +1,20 @@
 <div class="container">
     <br>
-    <h2>Administrar hoteles del destino: {{destination.name}}</h2>
+    <h2>Administrar destinos</h2>
     <div class="card">
         <div class="card-body">
-            <button type="button" class="btn btn-outline-secondary" routerLink="/backoffice/destination">
-                <fa-icon [icon]="faArrowLeft"></fa-icon>&nbsp;&nbsp;
-                Volver a destinos
-            </button>
+            <span style="display: block;">Filtros</span>
         </div>
     </div>
     <br>
     <div>
-        <button type="button" class="btn btn-outline-primary" (click)="addHotel()">
+        <button type="button" class="btn btn-outline-primary" (click)="addDestination()">
             <fa-icon [icon]="faPlus"></fa-icon>&nbsp;&nbsp;
-            Nuevo hotel
+            Nuevo destino
         </button>
     </div>
     <br>
-    <div class="card" *ngIf="collectionSize > 0">
+    <div class="card">
         <div class="card-body">
             <table class="table table-hover">
                 <thead>
@@ -25,28 +22,35 @@
                         <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
+                        <th scope="col">Cantidad de hoteles</th>
                         <th scope="col">Fecha de creación</th>
                         <th scope="col">Última actualización</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let hotel of hotels$ | async">
-                        <th scope="row"><span class="align-middle">{{hotel.id}}</span></th>
-                        <td><span class="align-middle">{{hotel.name}}</span></td>
-                        <td><span class="align-middle">{{hotel.description}}</span></td>
-                        <td><span class="align-middle">{{hotel.createdDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
-                        <td><span class="align-middle">{{hotel.lastUpdatedDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
+                    <tr *ngFor="let destination of destinations$ | async">
+                        <th scope="row"><span class="align-middle">{{destination.id}}</span></th>
+                        <td><span class="align-middle">{{destination.name}}</span></td>
+                        <td><span class="align-middle">{{destination.description}}</span></td>
+                        <td><span class="align-middle">{{destination.hotels.length}}</span></td>
+                        <td><span class="align-middle">{{destination.createdDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
+                        <td><span class="align-middle">{{destination.lastUpdatedDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
                         <td>
                             <div class="">
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateHotel(hotel)">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateDestination(destination)">
                                     <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
                                     Editar
                                 </button>
                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteHotel(hotel.id)">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteDestination(destination.id)">
                                     <fa-icon [icon]="faTrash"></fa-icon>&nbsp;&nbsp;
                                     Eliminar
+                                </button>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="editHotels(destination)">
+                                    <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
+                                    Administrar hoteles
                                 </button>
                             </div>
                         </td>
@@ -58,7 +62,7 @@
                     [collectionSize]="collectionSize"
                     [(page)]="page"
                     [pageSize]="pageSize"
-                    (pageChange)="getHotels()"
+                    (pageChange)="getDestinations()"
                 >
                 </ngb-pagination>
             </div>

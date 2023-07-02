@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import taller.destination.domain.entities.Destination;
+import taller.destination.domain.repositories.IDestinationRepository;
 import taller.hotel.application.dtos.hotel.HotelDto;
 import taller.hotel.application.dtos.hotel.HotelInsertDto;
 import taller.hotel.application.dtos.hotelPhoto.HotelPhotoDto;
@@ -31,6 +33,9 @@ public class HotelService implements IHotelService {
     private IHotelPhotoRepository _hotelPhotoRepository;
 
     @Autowired
+    private IDestinationRepository _destinationRepository;
+
+    @Autowired
     private ModelMapper _modelMapper;
 
     private static final Logger _logger = LoggerFactory.getLogger(HotelService.class);
@@ -51,6 +56,20 @@ public class HotelService implements IHotelService {
             .orElseThrow(() -> new ResourceNotFoundException("Hotel not found for this id :: " + id));
 
         return _modelMapper.map(hotel, HotelDto.class);
+    }
+
+    @Override
+    public List<HotelDto> getHotelsByDestinationId(Integer destinationId) throws ResourceNotFoundException {
+
+        Destination destination = _destinationRepository.findById(destinationId)
+            .orElseThrow(() -> new ResourceNotFoundException("Destination not found for this id :: " + destinationId));
+
+        List<HotelDto> result = _hotelRepository.findByDestinationId(destinationId)
+            .stream()
+            .map(hotel -> _modelMapper.map(hotel, HotelDto.class))
+            .collect(Collectors.toList());
+
+        return result;
     }
 
     @Override

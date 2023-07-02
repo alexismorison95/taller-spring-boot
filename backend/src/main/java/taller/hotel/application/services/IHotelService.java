@@ -26,6 +26,8 @@ public interface IHotelService {
      */
     HotelDto getHotelById(Integer id) throws ResourceNotFoundException;
 
+    List<HotelDto> getHotelsByDestinationId(Integer destinationId) throws ResourceNotFoundException;
+
     /**
      * Inserta un hotel
      * @param hotelDto Hotel a insertar
