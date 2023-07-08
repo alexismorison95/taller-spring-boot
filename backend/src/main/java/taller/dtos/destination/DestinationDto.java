@@ -16,11 +16,11 @@ public class DestinationDto {
 
     String description;
 
+    Integer hotelQuantity;
+
     Date createdDate;
 
     Date lastUpdatedDate;
-
-    List<HotelDto> hotels = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -46,6 +46,14 @@ public class DestinationDto {
         this.description = description;
     }
 
+    public Integer getHotelQuantity() {
+        return hotelQuantity;
+    }
+
+    public void setHotelQuantity(Integer hotelQuantity) {
+        this.hotelQuantity = hotelQuantity;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -60,13 +68,5 @@ public class DestinationDto {
 
     public void setLastUpdatedDate(Date lastUpdatedDate) {
         this.lastUpdatedDate = lastUpdatedDate;
-    }
-
-    public List<HotelDto> getHotels() {
-        return hotels;
-    }
-
-    public void setHotels(List<HotelDto> hotels) {
-        this.hotels = hotels;
     }
 }

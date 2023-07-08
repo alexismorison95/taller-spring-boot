@@ -9,10 +9,12 @@ import taller.dtos.destination.DestinationDto;
 import taller.dtos.destination.DestinationInsertDto;
 import taller.dtos.destination.DestinationUpdateDto;
 import taller.domain.Destination;
+import taller.dtos.product.ProductDto;
 import taller.repositories.IDestinationRepository;
 import taller.services.interfaces.IDestinationService;
 import taller.utils.ResourceNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +35,11 @@ public class DestinationService implements IDestinationService {
 
         return _destinationRepository.findAll()
             .stream()
-            .map(destination -> _modelMapper.map(destination, DestinationDto.class))
+            .map(destination -> {
+                DestinationDto dto = _modelMapper.map(destination, DestinationDto.class);
+                dto.setHotelQuantity(destination.getHotels().size());
+                return dto;
+            })
             .collect(Collectors.toList());
     }
 

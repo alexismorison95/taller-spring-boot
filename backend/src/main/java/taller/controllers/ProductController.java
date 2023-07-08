@@ -35,10 +35,6 @@ public class ProductController {
             .map(product -> _modelMapper.map(product, ProductDto.class))
             .collect(Collectors.toList());
 
-        for (ProductDto product: result) {
-            product.getDestination().setHotels(new ArrayList<>());
-        }
-
         return ResponseEntity.ok(result);
     }
 }
