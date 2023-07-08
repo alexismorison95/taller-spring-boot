@@ -4,20 +4,24 @@ import jakarta.persistence.*;
 import taller.domain.base.AuditableEntity;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "BookingType")
-public class BookingType extends AuditableEntity {
+@Table(name = "Transport")
+public class Transport extends AuditableEntity {
 
     @Column(nullable=false)
     private String name;
 
-    public BookingType() {
+    @OneToMany(mappedBy = "transport", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<ProductTransport> productTransports;
+
+    public Transport() {
     }
 
-    public BookingType(Integer id, String name, Date createdDate) {
-        this.setId(id);
+    public Transport(Integer id, String name, Date createdDate) {
         this.name = name;
+        this.setId(id);
         this.setCreatedDate(createdDate);
     }
 

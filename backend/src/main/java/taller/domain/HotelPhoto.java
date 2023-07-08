@@ -1,26 +1,18 @@
 package taller.domain;
 
 import jakarta.persistence.*;
+import taller.domain.base.AuditableEntity;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "HotelPhoto")
-public class HotelPhoto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class HotelPhoto extends AuditableEntity {
 
     @Column(nullable=false)
     private String url;
 
     private String description;
-
-    @Column(nullable=false)
-    private Date createdDate;
-
-    private Date lastUpdatedDate;
 
     @Column(nullable=false)
     private Integer hotelId;
@@ -33,19 +25,11 @@ public class HotelPhoto {
     }
 
     public HotelPhoto(Integer id, String url, String description, Date createdDate, Integer hotelId) {
-        this.id = id;
+        this.setId(id);
         this.url = url;
         this.description = description;
-        this.createdDate = createdDate;
+        this.setCreatedDate(createdDate);
         this.hotelId = hotelId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUrl() {
@@ -62,22 +46,6 @@ public class HotelPhoto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastUpdatedDate() {
-        return lastUpdatedDate;
-    }
-
-    public void setLastUpdatedDate(Date lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
     }
 
     public Integer getHotelId() {

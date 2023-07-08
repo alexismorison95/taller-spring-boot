@@ -4,44 +4,40 @@ import jakarta.persistence.*;
 import taller.domain.base.AuditableEntity;
 
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@Table(name = "Hotel")
-public class Hotel extends AuditableEntity {
+@Table(name = "DestinationPhoto")
+public class DestinationPhoto extends AuditableEntity {
 
     @Column(nullable=false)
-    private String name;
+    private String url;
 
     private String description;
 
     @Column(nullable=false)
     private Integer destinationId;
 
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<HotelPhoto> hotelPhotos;
-
     @ManyToOne
     @JoinColumn(name = "destinationId", insertable=false, updatable=false)
     private Destination destination;
 
-    public Hotel() {
+    public DestinationPhoto() {
     }
 
-    public Hotel(Integer id, String name, String description, Date createdDate, Integer destinationId) {
+    public DestinationPhoto(Integer id, String url, String description, Date createdDate, Integer destinationId) {
         this.setId(id);
-        this.name = name;
+        this.url = url;
         this.description = description;
         this.setCreatedDate(createdDate);
         this.destinationId = destinationId;
     }
 
-    public String getName() {
-        return name;
+    public String getUrl() {
+        return url;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getDescription() {
@@ -58,14 +54,6 @@ public class Hotel extends AuditableEntity {
 
     public void setDestinationId(Integer destinationId) {
         this.destinationId = destinationId;
-    }
-
-    public Set<HotelPhoto> getHotelPhotos() {
-        return hotelPhotos;
-    }
-
-    public void setHotelPhotos(Set<HotelPhoto> hotelPhotos) {
-        this.hotelPhotos = hotelPhotos;
     }
 
     public Destination getDestination() {

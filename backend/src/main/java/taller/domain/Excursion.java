@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "Hotel")
-public class Hotel extends AuditableEntity {
+@Table(name = "Excursion")
+public class Excursion extends AuditableEntity {
 
     @Column(nullable=false)
     private String name;
@@ -18,17 +18,17 @@ public class Hotel extends AuditableEntity {
     @Column(nullable=false)
     private Integer destinationId;
 
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<HotelPhoto> hotelPhotos;
-
     @ManyToOne
     @JoinColumn(name = "destinationId", insertable=false, updatable=false)
     private Destination destination;
 
-    public Hotel() {
+    @OneToMany(mappedBy = "excursion", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<ProductExcursion> productExcursions;
+
+    public Excursion() {
     }
 
-    public Hotel(Integer id, String name, String description, Date createdDate, Integer destinationId) {
+    public Excursion(Integer id, String name, String description, Date createdDate, Integer destinationId) {
         this.setId(id);
         this.name = name;
         this.description = description;
@@ -60,19 +60,19 @@ public class Hotel extends AuditableEntity {
         this.destinationId = destinationId;
     }
 
-    public Set<HotelPhoto> getHotelPhotos() {
-        return hotelPhotos;
-    }
-
-    public void setHotelPhotos(Set<HotelPhoto> hotelPhotos) {
-        this.hotelPhotos = hotelPhotos;
-    }
-
     public Destination getDestination() {
         return destination;
     }
 
     public void setDestination(Destination destination) {
         this.destination = destination;
+    }
+
+    public Set<ProductExcursion> getProductExcursions() {
+        return productExcursions;
+    }
+
+    public void setProductExcursions(Set<ProductExcursion> productExcursions) {
+        this.productExcursions = productExcursions;
     }
 }

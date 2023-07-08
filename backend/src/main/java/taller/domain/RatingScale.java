@@ -1,23 +1,25 @@
 package taller.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import taller.domain.base.AuditableEntity;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "BookingType")
-public class BookingType extends AuditableEntity {
+@Table(name = "RatingScale")
+public class RatingScale extends AuditableEntity {
 
     @Column(nullable=false)
     private String name;
 
-    public BookingType() {
+    public RatingScale() {
     }
 
-    public BookingType(Integer id, String name, Date createdDate) {
-        this.setId(id);
+    public RatingScale(Integer id, String name, Date createdDate) {
         this.name = name;
+        this.setId(id);
         this.setCreatedDate(createdDate);
     }
 

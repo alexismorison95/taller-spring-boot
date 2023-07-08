@@ -1,48 +1,36 @@
 package taller.domain;
 
 import jakarta.persistence.*;
+import taller.domain.base.AuditableEntity;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "Destination")
-public class Destination {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Destination extends AuditableEntity {
 
     @Column(nullable=false)
     private String name;
 
     private String description;
 
-    @Column(nullable=false)
-    private Date createdDate;
-
-    private Date lastUpdatedDate;
-
     @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Hotel> hotels;
 
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<DestinationPhoto> destinationPhotos;
+
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<Excursion> excursions;
+
     public Destination() {}
 
-    public Destination(Integer id, String name, String description, Date createdDate, Date lastUpdatedDate, Set<Hotel> hotels) {
-        this.id = id;
+    public Destination(Integer id, String name, String description, Date createdDate) {
+        this.setId(id);
         this.name = name;
         this.description = description;
-        this.createdDate = createdDate;
-        this.lastUpdatedDate = lastUpdatedDate;
-        this.hotels = hotels;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.setCreatedDate(createdDate);
     }
 
     public String getName() {
@@ -59,22 +47,6 @@ public class Destination {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastUpdatedDate() {
-        return lastUpdatedDate;
-    }
-
-    public void setLastUpdatedDate(Date lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
     }
 
     public Set<Hotel> getHotels() {
