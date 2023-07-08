@@ -144,4 +144,12 @@ public class Customer extends AuditableEntity {
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
+
+    public Set<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Favorite> favorites) {
+        this.favorites = favorites;
+    }
 }

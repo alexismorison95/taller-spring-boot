@@ -42,16 +42,20 @@ public class Product extends AuditableEntity {
     @Column(nullable=false)
     private Integer hotelId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "bookingTypeId", insertable=false, updatable=false)
     private BookingType bookingType;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "originId", insertable=false, updatable=false)
     private Origin origin;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "destinationId", insertable=false, updatable=false)
     private Destination destination;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "hotelId", insertable=false, updatable=false)
     private Hotel hotel;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
