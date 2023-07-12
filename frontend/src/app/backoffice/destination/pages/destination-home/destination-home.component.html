@@ -34,24 +34,28 @@
                         <td><span class="align-middle">{{destination.name}}</span></td>
                         <td><span class="align-middle">{{destination.description}}</span></td>
                         <td><span class="align-middle">{{destination.hotelQuantity}}</span></td>
-                        <td><span class="align-middle">{{destination.createdDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
-                        <td><span class="align-middle">{{destination.lastUpdatedDate | date: "dd/MM/YYYY hh:mm:ss a"}}</span></td>
+                        <td><span class="align-middle">{{destination.createdDate | date: "dd/MM/YYYY"}}</span></td>
+                        <td><span class="align-middle">{{destination.lastUpdatedDate | date: "dd/MM/YYYY"}}</span></td>
                         <td>
-                            <div class="">
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateDestination(destination)">
-                                    <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
-                                    Editar
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Acción
                                 </button>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteDestination(destination.id)">
-                                    <fa-icon [icon]="faTrash"></fa-icon>&nbsp;&nbsp;
-                                    Eliminar
-                                </button>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="editHotels(destination)">
-                                    <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
-                                    Administrar hoteles
-                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" (click)="updateDestination(destination)">
+                                        <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
+                                        Editar
+                                    </a></li>
+                                    <li><a class="dropdown-item" (click)="deleteDestination(destination.id)">
+                                        <fa-icon [icon]="faTrash"></fa-icon>&nbsp;&nbsp;
+                                        Eliminar
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" (click)="editHotels(destination)">
+                                        <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
+                                        Hoteles
+                                    </a></li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
