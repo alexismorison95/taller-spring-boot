@@ -1,12 +1,10 @@
-import { Hotel } from "../../hotel/models/hotel";
-
 export interface Destination {
     id: number;
     name: string;
     description: string;
+    hotelQuantity: number;
     createdDate: Date;
     lastUpdatedDate: Date;
-    hotels: Hotel[];
 }
 
 export interface InsertDestination {

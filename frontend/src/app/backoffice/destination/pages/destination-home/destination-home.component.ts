@@ -4,10 +4,10 @@ import { Destination } from '../../models/destination';
 import { cPAGE_SIZE } from 'src/app/shared/consts/consts';
 import { DestinationService } from '../../services/destination.service';
 import { Router } from '@angular/router';
-import { faArrowLeft, faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddOrUpdateDestinationModalComponent } from '../../components/add-or-update-destination-modal/add-or-update-destination-modal.component';
 import { ABMAction } from 'src/app/shared/emuns/abmAction.enum';
+import { AddDestinationComponent } from '../../components/add-destination/add-destination.component';
 
 @Component({
   selector: 'app-destination-home',
@@ -49,7 +49,7 @@ export class DestinationHomeComponent implements OnInit {
 
   addDestination() {
 
-    const modalRef = this._modalService.open(AddOrUpdateDestinationModalComponent);
+    const modalRef = this._modalService.open(AddDestinationComponent);
 
 		modalRef.componentInstance.action = ABMAction.insert;
 
@@ -66,20 +66,7 @@ export class DestinationHomeComponent implements OnInit {
 
   updateDestination(destination: Destination) {
 
-    const modalRef = this._modalService.open(AddOrUpdateDestinationModalComponent);
-
-		modalRef.componentInstance.action = ABMAction.update;
-		modalRef.componentInstance.destination = destination;
-
-    modalRef.result.then(destination => {
-
-      if (destination) {
-        this._destinationService.updateDestination(destination).subscribe(() => {
-
-          this.getDestinations();
-        });
-      }
-    });
+    this._router.navigateByUrl('/backoffice/destination/updateDestination/' + destination.id, { state: destination });
   }
 
   deleteDestination(id: number) {
@@ -91,6 +78,7 @@ export class DestinationHomeComponent implements OnInit {
   }
 
   editHotels(destination: Destination) {
+
     this._router.navigateByUrl('/backoffice/destination/hotelByDestination/' + destination.id, { state: destination });
   }
 }

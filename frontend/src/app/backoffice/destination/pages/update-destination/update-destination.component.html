@@ -1,0 +1,55 @@
+<div class="container">
+    <br>
+    <h2>Editar destino</h2>
+    <br>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="saveDestination()">Guardar destino</button>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+    </div>
+    <form [formGroup]="formGroup">
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <input type="text" class="form-control" formControlName="description">
+        </div>
+    </form>
+    <br>
+    <div>
+        <button type="button" class="btn btn-outline-primary" (click)="addPhoto()">
+            <fa-icon [icon]="faPlus"></fa-icon>&nbsp;&nbsp;
+            Nueva fotografía
+        </button>
+    </div>
+    <br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let photo of destinationPhotos | async">
+            <div class="card">
+                <img src="{{photo.url}}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Id: {{photo.id}}</h5>
+                    <p class="card-text">{{photo.description}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Fecha de creación: {{photo.createdDate | date: "dd/MM/YYYY hh:mm:ss a"}}</li>
+                    <li class="list-group-item">Última actualización: {{photo.lastUpdatedDate | date: "dd/MM/YYYY hh:mm:ss a"}}</li>
+                </ul>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-primary" (click)="updatePhoto(photo)">
+                        <fa-icon [icon]="faPen"></fa-icon>&nbsp;&nbsp;
+                        Editar
+                    </button>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <button type="button" class="btn btn-outline-danger" (click)="deletePhoto(photo.id)">
+                        <fa-icon [icon]="faTrash"></fa-icon>&nbsp;&nbsp;
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>

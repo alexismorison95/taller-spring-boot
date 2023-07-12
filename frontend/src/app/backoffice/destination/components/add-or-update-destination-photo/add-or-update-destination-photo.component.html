@@ -4,11 +4,13 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="formGroup">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Nombre" formControlName="name">
+        <div class="mb-3">
+            <label class="form-label">URL</label>
+            <input type="text" class="form-control" formControlName="url">
         </div>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Descripción" formControlName="description">
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <input type="text" class="form-control" formControlName="description">
         </div>
     </form>
 </div>

@@ -7,7 +7,9 @@ import { DestinationHomeComponent } from './destination/pages/destination-home/d
 import { BackofficeComponent } from './backoffice.component';
 import { AddOrUpdateHotelModalComponent } from './hotel/components/add-or-update-hotel-modal/add-or-update-hotel-modal.component';
 import { SharedModule } from '../shared/modules/shared.module';
-import { AddOrUpdateDestinationModalComponent } from './destination/components/add-or-update-destination-modal/add-or-update-destination-modal.component';
+import { UpdateDestinationComponent } from './destination/pages/update-destination/update-destination.component';
+import { AddOrUpdateDestinationPhotoComponent } from './destination/components/add-or-update-destination-photo/add-or-update-destination-photo.component';
+import { AddDestinationComponent } from './destination/components/add-destination/add-destination.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AddOrUpdateDestinationModalComponent } from './destination/components/a
     HotelHomeComponent,
     DestinationHomeComponent,
     AddOrUpdateHotelModalComponent,
-    AddOrUpdateDestinationModalComponent
+    UpdateDestinationComponent,
+    AddOrUpdateDestinationPhotoComponent,
+    AddDestinationComponent
   ],
   imports: [
     CommonModule,
