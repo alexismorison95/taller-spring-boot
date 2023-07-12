@@ -5,11 +5,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import taller.domain.DestinationPhoto;
+import taller.domain.Hotel;
+import taller.domain.HotelPhoto;
 import taller.dtos.destination.DestinationDto;
 import taller.dtos.destination.DestinationInsertDto;
 import taller.dtos.destination.DestinationUpdateDto;
 import taller.domain.Destination;
+import taller.dtos.destinationPhoto.DestinationPhotoDto;
+import taller.dtos.destinationPhoto.DestinationPhotoInsertDto;
+import taller.dtos.destinationPhoto.DestinationPhotoUpdateDto;
+import taller.dtos.hotelPhoto.HotelPhotoDto;
 import taller.dtos.product.ProductDto;
+import taller.repositories.IDestinationPhotoRepository;
 import taller.repositories.IDestinationRepository;
 import taller.services.interfaces.IDestinationService;
 import taller.utils.ResourceNotFoundException;
@@ -26,9 +34,12 @@ public class DestinationService implements IDestinationService {
     private IDestinationRepository _destinationRepository;
 
     @Autowired
+    private IDestinationPhotoRepository _destinationPhotoRepository;
+
+    @Autowired
     private ModelMapper _modelMapper;
 
-    private static final Logger _logger = LoggerFactory.getLogger(HotelService.class);
+    private static final Logger _logger = LoggerFactory.getLogger(DestinationService.class);
 
     @Override
     public List<DestinationDto> getAllDestiantions() {
@@ -83,5 +94,58 @@ public class DestinationService implements IDestinationService {
     public void deleteDestinationById(Integer id) {
 
         _destinationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<DestinationPhotoDto> getDestinationPhotosByDestinationId(Integer id) throws ResourceNotFoundException {
+
+        Destination destination = _destinationRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Destination not found for this id :: " + id));
+
+        return _destinationPhotoRepository.findByDestinationId(id)
+            .stream()
+            .map(destinationPhoto -> _modelMapper.map(destinationPhoto, DestinationPhotoDto.class))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public DestinationPhotoDto insertDestinationPhoto(DestinationPhotoInsertDto dto, Integer destinationId) throws ResourceNotFoundException {
+
+        Destination destination = _destinationRepository.findById(destinationId)
+            .orElseThrow(() -> new ResourceNotFoundException("Destination not found for this id :: " + destinationId));
+
+        DestinationPhoto destinationPhoto = _modelMapper.map(dto, DestinationPhoto.class);
+
+        destinationPhoto.setDestinationId(destinationId);
+        destinationPhoto.setDestination(destination);
+        destinationPhoto.setCreatedDate(new Date());
+
+        _destinationPhotoRepository.save(destinationPhoto);
+
+        return _modelMapper.map(destinationPhoto, DestinationPhotoDto.class);
+    }
+
+    @Override
+    public DestinationPhotoDto updateDestinationPhoto(DestinationPhotoUpdateDto dto, Integer destinationId) throws ResourceNotFoundException {
+
+        Destination destination = _destinationRepository.findById(destinationId)
+            .orElseThrow(() -> new ResourceNotFoundException("Destination not found for this id :: " + destinationId));
+
+        DestinationPhoto destinationPhoto = _destinationPhotoRepository.findById(dto.getId())
+            .orElseThrow(() -> new ResourceNotFoundException("DestinationPhoto not found for this id :: " + dto.getId()));
+
+        destinationPhoto.setUrl(dto.getUrl());
+        destinationPhoto.setDescription(dto.getDescription());
+        destinationPhoto.setLastUpdatedDate(new Date());
+
+        _destinationPhotoRepository.save(destinationPhoto);
+
+        return _modelMapper.map(destinationPhoto, DestinationPhotoDto.class);
+    }
+
+    @Override
+    public void deleteDestinationPhotoById(Integer id) {
+
+        _destinationPhotoRepository.deleteById(id);
     }
 }

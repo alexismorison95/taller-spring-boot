@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import taller.dtos.destination.DestinationDto;
 import taller.dtos.destination.DestinationInsertDto;
 import taller.dtos.destination.DestinationUpdateDto;
+import taller.dtos.destinationPhoto.DestinationPhotoDto;
+import taller.dtos.destinationPhoto.DestinationPhotoInsertDto;
+import taller.dtos.destinationPhoto.DestinationPhotoUpdateDto;
+import taller.dtos.hotelPhoto.HotelPhotoDto;
+import taller.dtos.hotelPhoto.HotelPhotoInsertDto;
+import taller.dtos.hotelPhoto.HotelPhotoUpdateDto;
 import taller.services.interfaces.IDestinationService;
 import taller.utils.ResourceNotFoundException;
 
@@ -56,6 +62,38 @@ public class DestinationController {
     public ResponseEntity<?> deleteDestinationById(@PathVariable Integer id) {
 
         _destinationService.deleteDestinationById(id);
+
+        return ResponseEntity.ok().body(id);
+    }
+
+    @GetMapping("/destination/{id}/destination-photo")
+    public ResponseEntity<List<DestinationPhotoDto>> getDestinationPhotosByHotelId(@PathVariable Integer id) throws ResourceNotFoundException {
+
+        List<DestinationPhotoDto> hotel = _destinationService.getDestinationPhotosByDestinationId(id);
+
+        return ResponseEntity.ok().body(hotel);
+    }
+
+    @PostMapping("/destination/{id}/destination-photo")
+    public ResponseEntity<DestinationPhotoDto> insertDestinationPhoto(@PathVariable Integer id, @RequestBody DestinationPhotoInsertDto dto) throws ResourceNotFoundException {
+
+        DestinationPhotoDto destinationPhoto = _destinationService.insertDestinationPhoto(dto, id);
+
+        return ResponseEntity.ok().body(destinationPhoto);
+    }
+
+    @PutMapping("/destination/{id}/destination-photo")
+    public ResponseEntity<DestinationPhotoDto> updateDestinationPhoto(@PathVariable Integer id, @RequestBody DestinationPhotoUpdateDto dto) throws ResourceNotFoundException {
+
+        DestinationPhotoDto destinationPhoto = _destinationService.updateDestinationPhoto(dto, id);
+
+        return ResponseEntity.ok().body(destinationPhoto);
+    }
+
+    @DeleteMapping("/destination/destination-photo/{id}")
+    public ResponseEntity<?> deleteDestinationPhotoById(@PathVariable Integer id) {
+
+        _destinationService.deleteDestinationPhotoById(id);
 
         return ResponseEntity.ok().body(id);
     }
