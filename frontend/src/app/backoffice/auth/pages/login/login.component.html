@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup">
+	<div class="form-group">
+		<label class="form-label">Usuario</label> 
+        <input type="text" class="form-control" formControlName="username"/>
+	</div>
+	<div class="form-group">
+		<label class="form-label">Contraseña</label> 
+        <input type="password" class="form-control"formControlName="password"/>
+	</div>
+	<button type="button" class="btn btn-primary" (click)="login()">Iniciar sesión</button>
+</form>

@@ -9,7 +9,7 @@ import { Hotel, InsertHotel, UpdateHotel } from '../models/hotel';
 })
 export class HotelService {
 
-  private readonly cBASE_URL = environment.api.url + 'hotel';
+  private readonly cBASE_URL = environment.api.url + 'private/hotel';
 
   constructor(private _http: HttpClient) { }
 

@@ -10,7 +10,7 @@ import { DestinationPhoto, InsertDestinationPhoto, UpdateDestinationPhoto } from
 })
 export class DestinationService {
 
-  private readonly cBASE_URL = environment.api.url + 'destination';
+  private readonly cBASE_URL = environment.api.url + 'private/destination';
 
   constructor(private _http: HttpClient) { }
 

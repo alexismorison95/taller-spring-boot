@@ -1,11 +1,10 @@
-package taller.controllers;
+package taller.controllers.privates;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import taller.domain.Transport;
 import taller.dtos.hotel.HotelDto;
 import taller.dtos.hotel.HotelInsertDto;
 import taller.dtos.hotelPhoto.HotelPhotoDto;
@@ -26,13 +25,13 @@ public class HotelController {
 
     private static final Logger _logger = LoggerFactory.getLogger(HotelController.class);
 
-    @GetMapping("/hotel")
+    @GetMapping("/private/hotel")
     public ResponseEntity<List<HotelDto>> getAllHotels() {
 
         return ResponseEntity.ok(_hotelService.getAllHotels());
     }
 
-    @GetMapping("/hotel/{id}")
+    @GetMapping("/private/hotel/{id}")
     public ResponseEntity<HotelDto> getHotelById(@PathVariable Integer id) throws ResourceNotFoundException {
 
         HotelDto hotel = _hotelService.getHotelById(id);
@@ -40,13 +39,13 @@ public class HotelController {
         return ResponseEntity.ok().body(hotel);
     }
 
-    @GetMapping("/hotel/by-destination/{desinationId}")
+    @GetMapping("/private/hotel/by-destination/{desinationId}")
     public ResponseEntity<List<HotelDto>> getHotelsByDestinationId(@PathVariable Integer desinationId) throws ResourceNotFoundException  {
 
         return ResponseEntity.ok(_hotelService.getHotelsByDestinationId(desinationId));
     }
 
-    @PostMapping("/hotel")
+    @PostMapping("/private/hotel")
     public ResponseEntity<HotelDto> insertHotel(@RequestBody HotelInsertDto hotelDto) {
 
         HotelDto hotel = _hotelService.insertHotel(hotelDto);
@@ -54,7 +53,7 @@ public class HotelController {
         return ResponseEntity.ok().body(hotel);
     }
 
-    @PutMapping("/hotel")
+    @PutMapping("/private/hotel")
     public ResponseEntity<HotelDto> updateHotel(@RequestBody HotelUpdateDto hotelDto) throws ResourceNotFoundException {
 
         HotelDto hotel = _hotelService.updateHotel(hotelDto);
@@ -62,7 +61,7 @@ public class HotelController {
         return ResponseEntity.ok().body(hotel);
     }
 
-    @DeleteMapping("/hotel/{id}")
+    @DeleteMapping("/private/hotel/{id}")
     public ResponseEntity<?> deleteHotelById(@PathVariable Integer id) {
 
         _hotelService.deleteHotelById(id);
@@ -70,7 +69,7 @@ public class HotelController {
         return ResponseEntity.ok().body(id);
     }
 
-    @GetMapping("/hotel/{id}/hotel-photo")
+    @GetMapping("/private/hotel/{id}/hotel-photo")
     public ResponseEntity<List<HotelPhotoDto>> getHotelPhotosByHotelId(@PathVariable Integer id) throws ResourceNotFoundException {
 
         List<HotelPhotoDto> hotel = _hotelService.getHotelPhotosByHotelId(id);
@@ -78,7 +77,7 @@ public class HotelController {
         return ResponseEntity.ok().body(hotel);
     }
 
-    @PostMapping("/hotel/{id}/hotel-photo")
+    @PostMapping("/private/hotel/{id}/hotel-photo")
     public ResponseEntity<HotelPhotoDto> insertHotelPhoto(@PathVariable Integer id, @RequestBody HotelPhotoInsertDto hotelPhotoDto) throws ResourceNotFoundException {
 
         HotelPhotoDto hotelPhoto = _hotelService.insertHotelPhoto(hotelPhotoDto, id);
@@ -86,7 +85,7 @@ public class HotelController {
         return ResponseEntity.ok().body(hotelPhoto);
     }
 
-    @PutMapping("/hotel/{id}/hotel-photo")
+    @PutMapping("/private/hotel/{id}/hotel-photo")
     public ResponseEntity<HotelPhotoDto> updateHotelPhoto(@PathVariable Integer id, @RequestBody HotelPhotoUpdateDto hotelPhotoDto) throws ResourceNotFoundException {
 
         HotelPhotoDto hotelPhoto = _hotelService.updateHotelPhoto(hotelPhotoDto, id);
@@ -94,7 +93,7 @@ public class HotelController {
         return ResponseEntity.ok().body(hotelPhoto);
     }
 
-    @DeleteMapping("/hotel/hotel-photo/{id}")
+    @DeleteMapping("/private/hotel/hotel-photo/{id}")
     public ResponseEntity<?> deleteHotelPhotoById(@PathVariable Integer id) {
 
         _hotelService.deleteHotelPhotoById(id);

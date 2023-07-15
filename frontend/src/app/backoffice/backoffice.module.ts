@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/modules/shared.module';
 import { UpdateDestinationComponent } from './destination/pages/update-destination/update-destination.component';
 import { AddOrUpdateDestinationPhotoComponent } from './destination/components/add-or-update-destination-photo/add-or-update-destination-photo.component';
 import { AddDestinationComponent } from './destination/components/add-destination/add-destination.component';
+import { LoginComponent } from './auth/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AddDestinationComponent } from './destination/components/add-destinatio
     AddOrUpdateHotelModalComponent,
     UpdateDestinationComponent,
     AddOrUpdateDestinationPhotoComponent,
-    AddDestinationComponent
+    AddDestinationComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
