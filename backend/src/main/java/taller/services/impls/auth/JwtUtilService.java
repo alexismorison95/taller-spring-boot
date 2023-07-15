@@ -41,6 +41,7 @@ public class JwtUtilService {
     }
 
     public String generateToken(UserDetails userDetails) {
+
         Map<String, Object> claims = new HashMap<>();
         // Agregando informacion adicional como "claim"
         var rol = userDetails.getAuthorities().stream().toList().get(0);

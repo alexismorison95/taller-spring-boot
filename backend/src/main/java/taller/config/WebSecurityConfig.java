@@ -24,13 +24,20 @@ public class WebSecurityConfig {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    private static final String[] AUTH_WHITELIST = {
+        // -- Swagger UI v3 (OpenAPI)
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        // other public endpoints of your API may be appended to this array
+        "/public/**"
+    };
+
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
-            //.disable() // (2)
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/public/**").permitAll()
+                .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers("/private/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
@@ -38,25 +45,14 @@ public class WebSecurityConfig {
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
             .sessionManagement((session) -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            );
+            )
         ;
 
-    http
-        .formLogin(withDefaults()); // (1)
-    http
-        .httpBasic(withDefaults()); // (1)
+        http.formLogin(withDefaults()); // (1)
+        http.httpBasic(withDefaults()); // (1)
 
         return http.build();
     }
-
-    /* (1) By default, Spring Security form login/http basic auth are enabled.
-  However, as soon as any servlet-based configuration is provided,
-  form based login or/and http basic auth must be explicitly provided.
-
-  * (2) If our stateless API uses token-based authentication, such as JWT,
-    we don't need CSRF protection
-  */
-
 
     // Autenticacion con UserDetailsService
     @Bean
